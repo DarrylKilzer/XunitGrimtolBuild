@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Xunit;
+using XunitGrimtolBuild.Models;
 
 namespace GrimtolTests
 {
@@ -16,31 +19,40 @@ namespace GrimtolTests
         [Fact]
         public void IsGame()
         {
-            Assert.True(game.GetType().Equals(typeof(Game)));
+            Assert.Equal(game.GetType(),(typeof(Game)));
         }
 
         [Fact]
         public void Player_Health_100_At_Start()
         {
-            Assert.True(game.CurrentPlayer.Health.Equals(100));
+            Assert.Equal(100, game.CurrentPlayer.Health);
+        }
+
+        [Theory]
+        [InlineData(100, 100)]
+        [InlineData(1000, 1000)]
+        public void Player_Health_Passed_In(int startHealth, int expectedHealth)
+        {
+            Game g = new Game(startHealth);
+            Assert.Equal(expectedHealth, g.CurrentPlayer.Health);
         }
 
         [Fact]
         public void Game_Has_4_Rooms()
         {
-            Assert.True(game.Rooms.Count.Equals(4));
+            Assert.Equal(4, game.Rooms.Count);
         }
 
         [Fact]
         public void Room_1_Has_1_Item()
         {
-            Assert.True(game.Rooms[1].Items.Count.Equals(1));
+            Assert.Single(game.Rooms[1].Items);
         }
 
         [Fact]
         public void Room_1_Has_Key()
         {
-            Assert.True(game.Rooms[1].Items[0].Name.Equals("key"));
+            Assert.Equal("key", game.Rooms[1].Items[0].Name);
         }
 
         [Fact]
@@ -58,17 +70,9 @@ namespace GrimtolTests
                     }
                 }
             }
-            Assert.True(Items.Count.Equals(1));
+            Assert.Single(Items);
         }
 
-        [Theory]
-        [InlineData(100, 100)]
-        [InlineData(1000, 1000)]
-        public void Player_Health_Passed_In(int startHealth, int expectedHealth)
-        {
-            Game g = new Game(startHealth);
-            Assert.True(g.CurrentPlayer.Health.Equals(expectedHealth));
-        }
 
 
 
