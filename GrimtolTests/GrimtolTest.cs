@@ -46,13 +46,13 @@ namespace GrimtolTests
         [Fact]
         public void Room_1_Has_1_Item()
         {
-            Assert.Single(game.Rooms[1].Items);
+            Assert.Single(game.Rooms[0].Items);
         }
 
         [Fact]
         public void Room_1_Has_Key()
         {
-            Assert.Equal("key", game.Rooms[1].Items[0].Name);
+            Assert.Equal("key", game.Rooms[0].Items[0].Name);
         }
 
         [Fact]
@@ -72,15 +72,5 @@ namespace GrimtolTests
             }
             Assert.Single(Items);
         }
-
-
-
-
-        public void Dispose()
-        {
-            game = null;
-        }
-
-
     }
 }
